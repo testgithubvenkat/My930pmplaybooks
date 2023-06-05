@@ -1,0 +1,11 @@
+--- # un-install vars playbook
+- hosts: webservers
+  become: yes
+  user: ansible
+  connection: ssh
+
+  tasks:
+    - name: un-install software
+      yum:
+       name: vars
+       state: absent

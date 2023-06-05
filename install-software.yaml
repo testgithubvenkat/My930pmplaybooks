@@ -1,0 +1,10 @@
+---
+- hosts: webservers
+  become: yes
+
+
+  tasks:
+    - name: installing a software
+      yum:
+       name: java
+       state: latest

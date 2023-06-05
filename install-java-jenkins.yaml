@@ -1,0 +1,38 @@
+--- # jenkins-java playbook
+- hosts: webservers
+  become: yes
+  user: ansible
+  connection: ssh
+
+  tasks:
+    - name: install java package
+      yum:
+        name: java
+        state: present
+
+    - name: install wget command
+      yum:
+        name: wget
+        state: present
+
+    - name: Download jenkins software
+      get_url:
+        url: https://pkg.jenkins.io/redhat-stable/jenkins.repo
+        dest: /etc/yum.repos.d/jenkins.repo
+
+    - name: download jenkins key
+      rpm_key:
+        state: present
+        key: https://pkg.jenkins.io/redhat-stable/jenkins.io-2023.key
+
+    - name: Install jenkins software
+      yum:
+        name: jenkins
+        state: present
+
+    - name: start jenkins service
+      service:
+        name: jenkins
+        state: started
+        enabled: yes  
+

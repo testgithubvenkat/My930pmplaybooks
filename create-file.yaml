@@ -1,0 +1,12 @@
+--- # file creation playbook
+
+- hosts: webservers
+  user: ansible
+  connection: ssh
+  become: yes
+
+  tasks:
+    - name: creating a file
+      file:
+        path: /home/ansible/demofile
+        state: touch

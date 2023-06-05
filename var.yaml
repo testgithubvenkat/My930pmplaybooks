@@ -1,0 +1,14 @@
+--- #my var playbook
+- hosts: webservers
+  become: yes
+  user: ansible
+  connection: ssh
+
+  vars:
+    user: Ambati
+
+    tasks:
+      - name: creating a user {user}
+        user:
+          name: "{{user}}"
+

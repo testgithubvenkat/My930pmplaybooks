@@ -1,0 +1,15 @@
+--- # multiple users in my playbook
+- hosts: webservers
+  become: yes
+  connection: ssh
+  user: ansible
+
+  tasks:
+    - name: creating multiple users
+      user: name='{{item}}' state=present
+      with_items:
+           - venu
+           - sagar
+           - radha
+           - nagireddy
+           - nallamma

@@ -1,0 +1,13 @@
+--- #
+- hosts: webservers
+  become: yes
+  connection: ssh
+  user: ansible
+
+  vars_files:
+    - user.yaml
+
+  tasks:
+    - name: creating user {{user1}}
+      user:
+        name: "{{user1}}"

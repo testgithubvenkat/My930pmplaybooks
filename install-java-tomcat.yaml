@@ -1,0 +1,42 @@
+--- # tomcat-java Playbook
+- hosts: webservers
+  become: yes
+  connection: ssh
+  user: ansible
+  tasks:
+    - name: Install java software on redhat
+      yum:
+        name: java
+        state: installed
+      when: ansible_os_family == "RedHat"
+
+
+    - name: Install java software on debian
+      ansible.builtin.apt:
+        name: default-jdk 
+        state: present
+      when: ansible_os_family == "Debian"
+
+
+    - name: Download tomcat software
+      get_url: 
+          url: https://dlcdn.apache.org/tomcat/tomcat-10/v10.1.9/bin/apache-tomcat-10.1.9.tar.gz
+          dest: /opt
+
+
+     - name: extract tomcat software
+       unarchive: 
+         src: /opt/apache-tomcat-10.1.9.tar.gz
+         dest: /opt
+         remote_src:yes
+
+     - name: providing executable permissions
+       file:
+         path: /opt/apache-tomcat-10.1.9/bin/startup.sh
+         mode: 0777
+
+     - name: start tomcat service
+       shell: nohub ./startup.sh
+       args:
+         chdir: /opt/apache-tomcat-10.1.9/bin
+

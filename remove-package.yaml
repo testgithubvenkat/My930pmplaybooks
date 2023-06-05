@@ -1,0 +1,10 @@
+--- 
+- hosts: webservers
+  user: ansible
+  become: yes
+  connection: ssh
+  tasks:
+    - name: un-install software
+      yum:
+        name: docker
+        state: absent

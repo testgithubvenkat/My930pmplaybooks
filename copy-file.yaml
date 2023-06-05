@@ -1,0 +1,11 @@
+--- # this is copyfile playbook
+- hosts: webservers
+  user: ansible
+  become: yes
+  connection: ssh
+
+  tasks:
+    - name: copying a file server to hosts
+      copy:
+        src: /home/ansible/index.html
+        dest: /home/ansible/
